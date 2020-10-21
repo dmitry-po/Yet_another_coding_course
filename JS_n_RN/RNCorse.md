@@ -7,7 +7,8 @@
 1.4 [useMemo](#useMemo)  
 1.5 [useContext](#useContext)  
 1.6. [useReducer](#useReducer)  
-1.7. [useEffect](#useEffect)
+1.7. [useEffect](#useEffect)  
+1.8. [useMyHook](#useMyHook)
 2. [Полезные ссылки](#Полезные-ссылки)
 
 ## Hooks
@@ -38,14 +39,40 @@ const App = () => {
 В рамках одного приложения может использовать более одной переменной состояния, вызывая каждый раз конструкцию UseState(). Однако, как и все прочиее хуки, useState можно использовать только на верзнем уровне функции.
 
 ### useRef
-useRef - почти "антипод" useState: он тоже позволяет хранить значение, но при изменении не вызывает повторный рендеринг. Другими словами, useRef позволяет вынести переменную за пределы рендеринга и хранить значение независимо от обновлений. 
+useRef - почти "антипод" useState: он тоже позволяет хранить значение, но при изменении не вызывает повторный рендеринг. Другими словами, useRef позволяет вынести переменную за пределы рендеринга и хранить значение независимо от обновлений.  
+Рассмотрим на предыдущем примере, добавив реализацию механизма сохранения наименования лампы:
 ```javascript
 import { useRef } from 'react';
-const chosenValue = useRef('Neo');
-console.log(chosenValue.current);   // Neo
+
+const App = () => {
+    const [light, setLight] = useState(0);
+
+    const setOff = () => setLight(0);
+    const setOn = () => setLight(1);
+
+    let status = light === 1 ? 'on' : 'off';
+
+    const [lampName, setLampName] = useState('Untitled');
+    const lampNameRef = useRef('');
+    const changeName = () => {
+        setLampName(lampNameRef.current.value);
+    }
+
+    return (
+        <>
+            <p>{lampName} lamp is {status}</p>
+            <button onClick={setOff}>Turn off</button>
+            &nbsp;
+            <button onClick={setOn}>Turn on</button>
+            <br/>
+            <input ref={lampNameRef} placeholder={'Input lamp name'} type='text'/>
+            <button onClick={changeName}>Set lamp name</button>
+        </>
+    );
+}
 ```
 Исходное значение пременной объявляется при инициации и записывается в атрибут current.  
-useRef может быть использована для фокусировки на объекте (chosenValue.current.focus()) или для хранения предыдущего значения другой переменной, например. Использовать useRef необходимо, когда изменение значения считается побочным эффектом (side effect).
+useRef может быть использована для фокусировки на объекте (chosenValue.current.focus()) или для хранения предыдущего значения другой переменной (как в примере), например. Использовать useRef необходимо, когда изменение значения считается побочным эффектом (side effect).
 
 ### useCallback
 ```javascript
@@ -230,6 +257,46 @@ const App = () => {
     );
 }
 ```
+
+### useMyHook
+Помимо стандартых хуков, можно писать собственные. Добавим хук useDimmer для регулирования "мощности" работы в базовый пример с лампами:
+```javascript
+import { useState } from 'react';
+
+// Начнём с самого хука: он принимает на вход начальное значение мощности и возвращает новое значение + инструменты для изменения
+const useDimmer = (initialState) => {
+    const [level, setLevel] = useState(initialState);
+    const decrease = () => {if (level > 0) setLevel(level-1)};
+    const increase = () => {if (level <100) setLevel(level+1)};
+    return [level, {increase, decrease, setLevel}]
+}
+
+// Интегрируем новый хук в приложение
+const App = () => {
+    const [light, setLight] = useState(0);
+    const [lampLevel, { increase, decrease }] = useDimmer(50);
+
+    const setOff = () => setLight(0);
+    const setOn = () => setLight(1);
+    const lampName ='Table';
+
+    let status = light === 1 ? `on for ${lampLevel}%` : 'off';
+
+    return (
+        <>
+            <p>{lampName} lamp is {status}</p>
+            <button onClick={setOff}>Turn off</button>
+            &nbsp;
+            <button onClick={setOn}>Turn on</button>
+            {light === 1 && (<>
+            <br/>
+            <button onClick={increase}>Increase brightness</button>
+            <button onClick={decrease}>Decrease brightness</button></>)}
+        </>
+    );
+}
+```
+Как видно в примере, useDimmer использует внутри useState, но можно использовать и другие хуки.
 
 ## Полезные ссылки:
 1. ["Demystifying React Hooks Series"](https://dev.to/milu_franz/series/7304) - цикл обзорных статей про хуки [useCallback и useMemo](https://dev.to/milu_franz/demystifying-react-hooks-usecallback-and-usememo-1a8j), [useRef](https://dev.to/milu_franz/demystifying-react-hooks-useref-2ddp), [useContext](https://dev.to/milu_franz/demystifying-react-hooks-usecontext-5g4a) и [useReducer](https://dev.to/milu_franz/demystifying-react-hooks-usereducer-3o3n);
