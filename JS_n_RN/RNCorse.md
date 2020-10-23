@@ -1,15 +1,49 @@
 # React Native
 ## Содержание
-1. [Hooks](#Hooks)  
-1.1 [useState](#useState)  
-1.2 [useRef](#useRef)  
-1.3 [useCallback](#useCallback)  
-1.4 [useMemo](#useMemo)  
-1.5 [useContext](#useContext)  
-1.6. [useReducer](#useReducer)  
-1.7. [useEffect](#useEffect)  
-1.8. [useMyHook](#useMyHook)
-2. [Полезные ссылки](#Полезные-ссылки)
+1. [Функции](#Функции)
+2. [Hooks](#Hooks)  
+2.1 [useState](#useState)  
+2.2 [useRef](#useRef)  
+2.3 [useCallback](#useCallback)  
+2.4 [useMemo](#useMemo)  
+2.5 [useContext](#useContext)  
+2.6. [useReducer](#useReducer)  
+2.7. [useEffect](#useEffect)  
+2.8. [useMyHook](#useMyHook)
+3. [Полезные ссылки](#Полезные-ссылки)
+
+# Функции
+React (и React Native) предлагает простой способ добавления обработчиков событий: 
+```javascript
+const App = () => {
+    return (
+        <button onClick={() => console.log('Hello, World')}>Click me!</button>
+    )
+}
+```
+В данном простом примере нажатие на кнопку порождает запись в консоли. При усложнениее логики фукнции, читаемость кода при такой записи ухужшается. Кроме того, независимо от сложности реализуемых функций, рекомендуется разделять JSX и бизнес-логику, поэтому пример корректнее переписать в следущем виде:
+```javascript
+const App = () => {
+    function handleClick() {
+        console.log('Hello, World')
+    }
+    return (
+        <button onClick={() => handleClick()}>Click me!</button>
+    )
+}
+```
+Или даже так:
+```javascript
+const App = () => {
+    const handleClick = () => {
+        console.log('Hello, World')
+    }
+    return (
+        <button onClick={handleClick}>Click me!</button>
+    )
+}
+```
+Последние 2 примера кажутся похожими, но в них кроется одно ключевое отличие: в первом случае (*onClick={() => handleClick()}*), функция *() => handleClick()* будет заново создаваться при каждом рендере. На большом объеме данных это может привести к просадке производительности.
 
 ## Hooks
 ### useState
@@ -139,6 +173,17 @@ export { textContext };
 
 // Файл App.js (и все сопутствующие):
 import { textContext } from './context.js';
+```
+Дополнительно можно пописать обертку в файле context.js:
+```javascript
+// Файл context.js:
+import React, { useContext } from "react";
+
+const textContext = React.createContext();
+const Consumer = () => useContext(textContext);
+const { Provider } = textContext;
+
+export { Consumer, Provider };
 ```
 
 ### useReducer
