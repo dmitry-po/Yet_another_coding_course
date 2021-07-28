@@ -263,7 +263,97 @@ const LampManager = () => {
     )
 }
 ```
-useReducer рекомендуется использовать в случаях, когда требуется реализовать "сложную" логику или когда процесс обновления затрагивает сразу несколько переменных состояния.
+useReducer рекомендуется использовать в случаях, когда требуется реализовать "сложную" логику или когда процесс обновления затрагивает сразу несколько переменных состояния. Также, useReducer удобно использовать в связке с useContext для упрощения процесса рбаоты с переменными состояния. Например:
+```javascript
+// Вариант 1.
+import React, { useState, useContext, createContext };
+
+const AppContext = createContext()
+const AppContextProvider = (props) => {
+    const [val, setVal] = useState(42);
+    const doubleVal = () => {
+        setVal(val*2);
+    }
+    const squareVal = () => {
+        setVal(val**2);
+    }
+    const multiplyVal = (num) => {
+        setVal(val*num);
+    }
+    return (
+        <AppContext.Provider value={{val, doubleVal, squareVal, multiplyVal}}>
+            { props.children }
+        </AppContext.Provider>
+    )
+}
+
+const Calculator = () => {
+    const { val, doubleVal, squareVal, multiplyVal } = useContext(AppContext);
+    const multiplyBySeven = () => {
+        multiplyVal(7);
+    }
+    return (
+        <>
+            <h3>Lazy calculator</h3>
+            <div>
+                <p>Current value is {val}</p>
+                <button onClick={doubleVal}>Double the value!</button>
+                <button onClick={squareVal}>Square the value!</button>
+                <button onClick={multiplyBySeven}>Make it 7 times bigger!</button>
+            </div>
+        </>
+    )
+}
+
+const App = () => {
+    return (
+        <>
+            <AppContextProvider>
+                <Calculator/>
+            </AppContextProvider>
+        </>
+    )
+}
+
+// Вариант 2.
+// Добавим reduce-функцию:
+const oddReducer = (state, action) => {
+    switch(action.type) {
+        case 'double' : return (state * 2);
+        case 'square' : return (state ** 2);
+        case 'multiply' : return (state * action.num);
+        default: return state;
+    }
+}
+// Поправим поставщика контекста:
+const AppContextProvider = (props) => {
+    const [val, dispatch] = useReducer(oddReducer, 42);
+    return (
+        <AppContext.Provider value={{val, dispatch}}>
+            { props.children }
+        </AppContext.Provider>
+    )
+}
+// И, наконец, поправим основной компонент - потребитель контекста:
+const Calculator = () => {
+    const { val, dispatch } = useContext(AppContext);
+    const multiplyBySeven = () => {
+        dispatch({type:'multiply', num:7});
+    }
+    return (
+        <>
+            <h3>Lazy calculator</h3>
+            <div>
+                <p>Current value is {val}</p>
+                <button onClick={() => dispatch({type:'double'})}>Double the value!</button>
+                <button onClick={() => dispatch({type:'square'})}>Square the value!</button>
+                <button onClick={multiplyBySeven}>Make it 7 times bigger!</button>
+            </div>
+        </>
+    )
+}
+```
+В первом варианте через контекст необходимо передавать все методы над исходным состоянием. Во втором - все методы объединены в один, что, как правило, облегчает читаемость кода и его поддержку. 
 
 ### useEffect
 Хук useEffect используется для выполнения т.н. side эффектов. Побочными эффектами могут быть обращения к API, сложная обработка. В примере ниже идет обращение по API к справочнику героев саги "Звездные Войны", которое выполняется независимо от рендеринга всего приложения. В момент, когда данные загружаются, с помощью хука useState происходит обновление массива данных, что вызывает повторный рендеринг уже с полученными данными. useEffect принимает на вход функцию (которая выполняет основную нагрузку) и список переменных, изменение которых запускает указанную функцию (список переменных не обязательный параметр, но его отсутствие повлечет постоянное обновление -  в примере ниже указан пустой список, чтобы обновление выполнилось только один раз):
@@ -341,8 +431,28 @@ const App = () => {
     );
 }
 ```
-Как видно в примере, useDimmer использует внутри useState, но можно использовать и другие хуки.
+Как видно в примере, useDimmer использует внутри useState, но можно использовать и другие хуки.  
+В собственные хуки иногда удобно оборачивать запросы ко внешним API:
+```javascript
+import { useState, useEffect } from 'react';
+
+const useDataFetch = (initialState) => {
+    const [url, setUrl] = useState('');
+    const [payload, setPayload] = useState(initialState);
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+        setIsLoading(true)
+        fetch(url)
+        .then(responce => responce.json())
+        .then(data => setPayload(data))
+        .catch(e => console.log('URL not specified'))
+        .finally(() => setIsLoading(false))
+    }, [url])
+    return [payload, isLoading, setUrl]
+}
+```
 
 ## Полезные ссылки:
 1. ["Demystifying React Hooks Series"](https://dev.to/milu_franz/series/7304) - цикл обзорных статей про хуки [useCallback и useMemo](https://dev.to/milu_franz/demystifying-react-hooks-usecallback-and-usememo-1a8j), [useRef](https://dev.to/milu_franz/demystifying-react-hooks-useref-2ddp), [useContext](https://dev.to/milu_franz/demystifying-react-hooks-usecontext-5g4a) и [useReducer](https://dev.to/milu_franz/demystifying-react-hooks-usereducer-3o3n);
 2. ["Введение в React Hooks"](https://habr.com/ru/post/429712/) - статья про хуки useState, useEffect, useContext, useRef и пользовательские хуки.
+3. [React Context & Hooks Tutorial (YouTube)](https://www.youtube.com/playlist?list=PL4cUxeGkcC9hNokByJilPg5g9m2APUePI);
