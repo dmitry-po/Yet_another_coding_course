@@ -1,0 +1,288 @@
+<html>
+    <head>
+        <title>Dmitry Po's personal HTML and CSS course</title>
+    </head>
+    <body>
+        <h1>Справочник полезных знаний по HTML и CSS</h1>
+        <h2>CSS</h2>
+        <h3>Flexbox</h3>
+        <p>CSS Flexbox - технология для создания макетов с помощью инструментов выравнивания. 
+            Для того, чтобы использовать Flexbox, необходимо установить атрибут стиля <i>display: flex</i>. 
+            Для сравнения:
+        </p>
+        <li>display: block</li>
+        <div style="display: block; background-color: #F2EAE4;">
+            <div style="width: 10px; height: 10px; background-color:#5DA629"></div>
+            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+            <div style="width: 30px; height: 30px; background-color: #F27405"></div>
+            <div style="width: 40px; height: 40px; background-color: #A60303"></div>
+        </div>
+        <li><i>display: flex</i></li>
+        <div style="display: flex; background-color: #F2EAE4; ">
+            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+            <div style="width: 20px; height: 20px; background-color: #F2B705;"></div>
+            <div style="width: 30px; height: 30px; background-color: #F27405"></div>
+            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+        </div>
+
+        <h4>Определение осей (flex-direction)</h4>
+        <p>У каждого контейнера есть 2 оси: основная и перпендикулярная. Вдоль этих осей и происходит выравнивание элементов. 
+            По умолчанию, основной осью считается горизонтальная, но значение можно переопределить с помощью атрибута <i>flex-direction</i>:</p>
+            <div style="display:flex; justify-content: space-between;">
+                <div style="width: 49%;">
+                    <li><i>flex-direction: row</i></li>
+                    <div style="display: flex; flex-direction: row; background-color: #F2EAE4">
+                        <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                        <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                        <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                        <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                    </div>
+                </div>
+                <div style="width: 49%;">
+                    <li><i>flex-direction: row-reverse</i></li>
+                    <div style="display: flex; flex-direction: row-reverse; background-color: #F2EAE4">
+                        <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                        <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                        <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                        <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between;">
+                <div style="width: 49%;">
+                    <li><i>flex-direction: column</i></li>
+                    <div style="display: flex; flex-direction: column; background-color: #F2EAE4">
+                        <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                        <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                        <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                        <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                    </div>
+                </div>
+                <div style="width: 49%;">
+                    <li><i>flex-direction: column-reverse</i></li>
+                    <div style="display: flex; flex-direction: column-reverse; background-color: #F2EAE4">
+                        <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                        <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                        <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                        <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                    </div>
+                </div>
+            </div>
+
+        <h4>Выравнивание по главной оси (justify-content)</h4>
+        <p>Выравнивание элементов вдоль главной оси выполняется с помощью атрибута justify-content. 
+            По умолчанию устанавливается значение <i>flex-start</i>, но также используются:</p>
+        <div>
+            <div>
+                <div style="display:flex; justify-content: space-between;">
+                    <div style="width: 32%;">
+                        <li><i>justify-content: flex-start</i></li>
+                        <div style="display: flex; justify-content: flex-start; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 32%;">
+                        <li><i>justify-content: center</i></li>
+                        <div style="display: flex; justify-content: center; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 32%;">
+                        <li><i>justify-content: flex-end</i></li>
+                        <div style="display: flex; justify-content: flex-end; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="display:flex; justify-content: space-between;">
+                    <div style="width: 32%;">
+                        <li><i>justify-content: space-around</i></li>
+                        <div style="display: flex; justify-content: space-around; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 32%;">
+                        <li><i>justify-content: space-evenly</i></li>
+                        <div style="display: flex; justify-content: space-evenly; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 32%;">
+                        <li><i>justify-content: space-between</i></li>
+                        <div style="display: flex; justify-content: space-between; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4>Выравнивание по перпендикулярной оси (align-items)</h4>
+        <p>align-items работает аналогично justify-content, но с перпендикулярной осью. 
+            По умолчанию устанавливается значение <i>stretch</i>, но для его корректной работы требуется, чтобы у дочерних элементов 
+            не было задано значение параметра высоты/ширины, в зависимости от выбранной главной оси. Также применяются следующий значения:</p>
+        <div>
+            <div>
+                <div style="display:flex; justify-content: space-between;">
+                    <div style="width: 24%;">
+                        <li><i>align-items: flex-start</i></li>
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 24%;">
+                        <li><i>align-items: center</i></li>
+                        <div style="display: flex; align-items: center; justify-content: space-between; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 24%;">
+                        <li><i>align-items: flex-end</i></li>
+                        <div style="display: flex; align-items: flex-end; justify-content: space-between; background-color: #F2EAE4">
+                            <div style="width: 10px; height: 10px; background-color: #5DA629;"></div>
+                            <div style="width: 20px; height: 20px; background-color: #F2B705"></div>
+                            <div style="width: 30px; height: 30px; background-color: #F27405;"></div>
+                            <div style="width: 40px; height: 40px; background-color: #A60303;"></div>
+                        </div>
+                    </div>
+                    <div style="width: 24%;">
+                        <li><i>align-items: stretch</i></li>
+                        <div style="display: flex; align-items: stretch; justify-content: space-between; background-color: #F2EAE4">
+                            <div style="width: 10px; background-color: #5DA629;"><div style="height: 10px;"></div></div>
+                            <div style="width: 20px; background-color: #F2B705"><div style="height: 20px;"></div></div>
+                            <div style="width: 30px; background-color: #F27405;"><div style="height: 30px;"></div></div>
+                            <div style="width: 40px; background-color: #A60303;"><div style="height: 40px;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>Теги justify-content и align-items можно совмещать в одной верстке (как на примере выше).</p>
+        
+        <h4>Выравнивание отдельных элементов (align-self)</h4>
+        <p>Можно выравнивать не только все элементы, но и отдельные его элементы с помощью атрибута <i>align-self</i>:</p>
+        <div style="display: flex; align-items: flex-start; height: 50px; justify-content: space-between; background-color: #F2EAE4">
+            <div style="width: 20%; background-color: #5DA629; color: #f2f2f2; padding: 5px; align-self: flex-start;"><i>align-self: flex-start</i></div>
+            <div style="width: 20%; background-color: #F2B705; color: #f2f2f2; padding: 5px; align-self: stretch"><i>align-self: stretch</i></div>
+            <div style="width: 20%; background-color: #F27405; color: #f2f2f2; padding: 5px; align-self: flex-end"><i>align-self: flex-end</i></div>
+            <div style="width: 20%; background-color: #A60303; color: #f2f2f2; padding: 5px;"><i>Атрибут не задан</i></div>
+        </div>
+        
+        <h4>Размеры элементов</h4>
+        <p><b>flex-basis</b> - позволяет задать абсолютное значение длины/ширины (в зависимости от основной оси) элемента контейнера:</p>
+        <div style="display: flex; width: 100%; background-color: #F2EAE4">
+            <div style="background-color: #5DA629; flex-basis: 10%; color: #f2f2f2; padding: 5px;">10%</div>
+            <div style="background-color: #F2B705; flex-basis: 20%; color: #f2f2f2; padding: 5px;">20%</div>
+            <div style="background-color: #F27405; flex-basis: 30%; color: #f2f2f2; padding: 5px;">30%</div>
+            <div style="background-color: #A60303; flex-basis: 40%; color: #f2f2f2; padding: 5px;">40%</div>
+        </div>
+
+        <p><b>flex-grow</b> - позволяет задать относительное значение длины/ширины (в зависимости от основной оси) элемента контейнера. 
+        В примере ниже первый объект занимает 1/(1+2+3+4) часть пространства, второй 2/10 и т.д.. Используется, когда необходимо, 
+        чтобы дочерние элементы занимали всю площадь контейнера:</p>
+        <li>Без flex-grow:</li>
+        <div style="display: flex; width: 100%; background-color: #F2EAE4">
+            <div style="background-color: #5DA629; width: 30px; color: #f2f2f2; padding: 5px;">30px</div>
+            <div style="background-color: #F2B705; width: 40px; color: #f2f2f2; padding: 5px;">40px</div>
+            <div style="background-color: #F27405; width: 50px; color: #f2f2f2; padding: 5px;">50px</div>
+            <div style="background-color: #A60303; width: 60px; color: #f2f2f2; padding: 5px;">60px</div>
+        </div>
+        <li>С flex-grow:</li>
+        <div style="display: flex; width: 100%; background-color: #F2EAE4">
+            <div style="background-color: #5DA629; width: 10px; flex-grow: 1; color: #f2f2f2; padding: 5px;">30px, 1</div>
+            <div style="background-color: #F2B705; width: 20px; flex-grow: 2; color: #f2f2f2; padding: 5px;">40px, 2</div>
+            <div style="background-color: #F27405; width: 30px; flex-grow: 3; color: #f2f2f2; padding: 5px;">50px 3</div>
+            <div style="background-color: #A60303; width: 40px; flex-grow: 4; color: #f2f2f2; padding: 5px;">60px ,4</div>
+        </div>
+
+        <p><b>flex-shrink</b> - противоположность flex-grow, позволяет "ужимать" элементы при превышении доступной ширины контейнера:</p>
+        <li>Все элемент имеют ширину 140px, контейнер - 600px:</li>
+        <div style="display: flex; background-color: #F2EAE4; width: 600px;">
+            <div style="background-color: #5DA629; width: 140px; flex-shrink: 1; color: #f2f2f2; padding: 5px;">1</div>
+            <div style="background-color: #F2B705; width: 140px; flex-shrink: 2; color: #f2f2f2; padding: 5px;">2</div>
+            <div style="background-color: #F27405; width: 140px; flex-shrink: 3; color: #f2f2f2; padding: 5px;">3</div>
+            <div style="background-color: #A60303; width: 140px; flex-shrink: 4; color: #f2f2f2; padding: 5px;">4</div>
+        </div>
+        <li>Условия те же, но ширина контейнера уменьшилась до 300px:</li>
+        <div style="display: flex; background-color: #F2EAE4; width: 300px;">
+            <div style="background-color: #5DA629; width: 140px; flex-shrink: 1; color: #f2f2f2; padding: 5px;">1</div>
+            <div style="background-color: #F2B705; width: 140px; flex-shrink: 2; color: #f2f2f2; padding: 5px;">2</div>
+            <div style="background-color: #F27405; width: 140px; flex-shrink: 3; color: #f2f2f2; padding: 5px;">3</div>
+            <div style="background-color: #A60303; width: 140px; flex-shrink: 4; color: #f2f2f2; padding: 5px;">4</div>
+        </div>
+
+        <h4>Перенос элементов (flex-wrap)</h4>
+        <p>Проблему с уменьшением доступных размеров родительского контейнера можно решить другим способом - переносом дочерних 
+            элементов на новую строку/столбце (в зависимости от основной оси) - с помощью атрибута <i>flex-wrap</i> (по умолчанию 
+            принимает значения <i>nowrap</i>, также доступны <i>wrap</i> и <i>wrap-reverse</i>):
+        <div style="display: flex; background-color: #F2EAE4; width: 300px; flex-wrap:wrap;">
+            <div style="background-color: #5DA629; width: 140px; flex-shrink: 1; color: #f2f2f2; padding: 5px;">1</div>
+            <div style="background-color: #F2B705; width: 140px; flex-shrink: 2; color: #f2f2f2; padding: 5px;">2</div>
+            <div style="background-color: #F27405; width: 140px; flex-shrink: 3; color: #f2f2f2; padding: 5px;">3</div>
+            <div style="background-color: #A60303; width: 140px; flex-shrink: 4; color: #f2f2f2; padding: 5px;">4</div>
+        </div>
+        <br>
+
+        <h4>Межстрочное выравнивание (align-content)</h4>
+        <p>В случаях, когда в контейнере появляется несколько строк/столбцов (в зависимости от основной оси), появляется 
+            возможность использовать атрибут align-content. В отличие от align-items, который определяет выравнивание элементов
+            внутри одной строки/столбца, align-content определяет выравнивание строк/столбцов внутри контейнера. Например:</p>
+        <div style="display:flex; justify-content: space-between;">
+            <div style="width: 49%;">
+                <li><i>align-items: center</i></li>
+                <div style="display: flex; background-color: #F2EAE4; height: 100px; flex-wrap:wrap; justify-content: center; align-items: center">
+                    <div style="background-color: #5DA629; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                    <div style="background-color: #F2B705; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                    <div style="background-color: #F27405; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                    <div style="background-color: #A60303; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                </div>
+            </div>
+            <div style="width: 49%;">
+                <li><i>align-content: center</i></li>
+                <div style="display: flex; background-color: #F2EAE4; height: 100px; flex-wrap:wrap; justify-content: center; 
+                align-content:center">
+                    <div style="background-color: #5DA629; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                    <div style="background-color: #F2B705; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                    <div style="background-color: #F27405; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                    <div style="background-color: #A60303; width: 45%; height: 20px; color: #f2f2f2; padding: 5px;"></div>
+                </div>
+            </div>
+        </div>
+        <p>Помимо значения <i>center</i>, атрибут принимает также значения <i>flex-start, flex-end, space-around, space-between,
+            space-evenly, stretch</i> (по умолчанию).</i></p>
+
+
+        <h2>Полезные ссылки</h2>
+        <ul>
+            <li><a href="https://tproger.ru/translations/how-css-flexbox-works/">Как работает CSS Flexbox</a>;</li>
+            <li><a href="https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container">Выравнивание элементов во Flex контейнере</a>;</li>
+            <li><a href="https://flexboxfroggy.com/">Flexbox Froggy</a> - интерактивное обучение верстки на Flexbox.</li>
+        </ul>
+    </body>
+</html>
